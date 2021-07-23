@@ -1,15 +1,32 @@
-import Link from 'next/link'
-import Layout from '../components/Layout'
+import React from 'react'
+import { Login, Logout, auth } from "lib/firebase"
+import { Box, Heading } from "@chakra-ui/layout"
+import Button from 'components/Button'
 
 const IndexPage = () => (
-  <Layout title="Home | Next.js + TypeScript Example">
-    <h1>Hello Next.js 👋</h1>
-    <p>
-      <Link href="/about">
-        <a>About</a>
-      </Link>
-    </p>
-  </Layout>
+  <Box>
+    <Heading>hellooo</Heading>
+    <div>
+      <Button
+        callback={Login}
+        label='ログイン'
+      />
+      <Button
+        callback={() => Logout()}
+        label='ログアウト'
+      />
+      <button onClick={() => Login()}>ログイン</button>
+      <button onClick={() => Logout()}>ログアウト</button>
+    </div>
+    <div>
+      <pre>
+        {auth.currentUser
+          ? auth.currentUser.displayName + "でログイン中"
+          : "not login"
+        }
+      </pre>
+    </div>
+  </Box>
 )
 
 export default IndexPage
