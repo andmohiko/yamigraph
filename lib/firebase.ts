@@ -1,5 +1,6 @@
-import firebase from "firebase/app"
-import "firebase/auth"
+import firebase from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/firestore'
 
 export const config = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -15,6 +16,7 @@ export const config = {
 
 export const auth = firebase.auth()
 export const Firebase = firebase
+export const db = firebase.firestore
 
 export const Login = () => {
   const provider = new firebase.auth.GoogleAuthProvider();
@@ -37,7 +39,6 @@ export const Login = () => {
 export const listenAuthState = (dispatch: any) => {
   return firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
-      // User is signed in.
       dispatch({
         type: "login",
         payload: {
@@ -45,8 +46,6 @@ export const listenAuthState = (dispatch: any) => {
         },
       });
     } else {
-      // User is signed out.
-      // ...
       dispatch({
         type: "logout",
       });
